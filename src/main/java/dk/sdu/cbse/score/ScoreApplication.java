@@ -1,1 +1,9 @@
-package dk.sdu.cbse.score; import org.springframework.boot.*;import org.springframework.boot.autoconfigure.*;import org.springframework.web.bind.annotation.*;import java.util.concurrent.atomic.AtomicInteger; @SpringBootApplication public class ScoreApplication{public static void main(String[] a){SpringApplication.run(ScoreApplication.class,a);} @RestController static class ScoreController{private final AtomicInteger score=new AtomicInteger(); @GetMapping("/score") int get(){return score.get();}@PostMapping("/score/{points}")int add(@PathVariable int points){return score.addAndGet(points);}@DeleteMapping("/score")void reset(){score.set(0);}}}
+package dk.sdu.cbse.score;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ScoreApplication {
+    public static void main(String[] args) { SpringApplication.run(ScoreApplication.class, args); }
+}

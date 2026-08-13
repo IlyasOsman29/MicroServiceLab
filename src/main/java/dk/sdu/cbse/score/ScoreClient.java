@@ -1,1 +1,28 @@
-package dk.sdu.cbse.score; import org.springframework.web.client.RestTemplate; public final class ScoreClient{private final RestTemplate rest=new RestTemplate();private final String url="http://localhost:8080/score";public int get(){Integer v=rest.getForObject(url,Integer.class);return v==null?0:v;}public int add(int points){Integer v=rest.postForObject(url+"/"+points,null,Integer.class);return v==null?0:v;}public void reset(){rest.delete(url);}}
+package dk.sdu.cbse.score;
+
+import org.springframework.web.client.RestTemplate;
+
+/** Minimal Asteroids-side adapter for the remote scoring component. */
+public final class ScoreClient {
+    private final RestTemplate restTemplate;
+    private final String scoreUrl;
+
+    public ScoreClient(String baseUrl) { this(new RestTemplate(), baseUrl); }
+
+    ScoreClient(RestTemplate restTemplate, String baseUrl) {
+        this.restTemplate = restTemplate;
+        this.scoreUrl = baseUrl.replaceAll("/$", "") + "/score";
+    }
+
+    public int get() {
+        Integer value = restTemplate.getForObject(scoreUrl, Integer.class);
+        return value == null ? 0 : value;
+    }
+
+    public int add(int points) {
+        Integer value = restTemplate.postForObject(scoreUrl + "/" + points, null, Integer.class);
+        return value == null ? 0 : value;
+    }
+
+    public void reset() { restTemplate.delete(scoreUrl); }
+}
