@@ -1,31 +1,31 @@
-# MicroServiceLab - scoring service
+# MicroServiceLab
 
-This lab contains a small Spring Boot scoring microservice and an Asteroids-facing client that uses Spring `RestTemplate`.
+This lab has a small Spring Boot service for the game score. `ScoreClient` calls it with `RestTemplate`.
 
-## Automated integration proof
+The service supports:
 
-```powershell
-mvn clean test package
+- `GET /score` to read the score
+- `POST /score/{points}` to add points
+- `DELETE /score` to reset it
+
+## Test
+
+```text
+mvn clean verify
 ```
 
-`ScoreIntegrationTest` starts the real HTTP server on a random port. Through `ScoreClient` and `RestTemplate` it resets the score, adds 25 points, reads 25, adds 5 and reads 30. This proves network integration rather than only compiling a client beside a controller.
+The integration test starts the server on a random port and checks reset, add and read through the client.
 
-## Manual server/client demonstration
+## Try it manually
 
-Terminal 1:
+Start the server:
 
-```powershell
+```text
 mvn spring-boot:run
 ```
 
-Terminal 2, after the server reports that it started:
+Then run this in another terminal:
 
-```powershell
+```text
 mvn -q exec:java -Dexec.mainClass=dk.sdu.cbse.score.ScoreClientDemo -Dexec.classpathScope=runtime
 ```
-
-The client resets the server, adds points and prints the changed score. The REST API is:
-
-- `GET /score` - read score
-- `POST /score/{points}` - add points and return score
-- `DELETE /score` - reset score
