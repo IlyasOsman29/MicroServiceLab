@@ -10,13 +10,12 @@ class ScoreIntegrationTest {
     @LocalServerPort private int port;
 
     @Test
-    void restTemplateAddsAndReadsScoreThroughRealHttpServer() {
-        ScoreClient client = new ScoreClient("http://localhost:" + port);
-        client.reset();
-        assertEquals(0, client.get());
-        assertEquals(25, client.add(25));
-        assertEquals(25, client.get());
-        assertEquals(30, client.add(5));
-        assertEquals(30, client.get());
+    void asteroidsGameUpdatesScoreThroughRealHttpServer() {
+        AsteroidsGame game = new AsteroidsGame(new ScoreClient("http://localhost:" + port));
+        game.start();
+        assertEquals(0, game.score());
+        assertEquals(25, game.asteroidDestroyed());
+        assertEquals(50, game.asteroidDestroyed());
+        assertEquals(50, game.score());
     }
 }

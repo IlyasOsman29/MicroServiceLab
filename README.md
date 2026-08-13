@@ -1,6 +1,8 @@
 # MicroServiceLab
 
-This lab has a small Spring Boot service for the game score. `ScoreClient` calls it with `RestTemplate`.
+This lab has a small Spring Boot service for the game score. `ScoreClient` calls it with `RestTemplate`, and `AsteroidsGame` is the game-side class that resets the score and awards 25 points when an asteroid is destroyed.
+
+This is the last separate exercise before the runtime plugin demonstration in [AsteroidsFinal](https://github.com/IlyasOsman29/AsteroidsFinal).
 
 The service supports:
 
@@ -14,7 +16,7 @@ The service supports:
 mvn clean verify
 ```
 
-The integration test starts the server on a random port and checks reset, add and read through the client.
+The integration test starts the server on a random port. It then starts the small Asteroids-side client, destroys two asteroids and checks that the service score changes from 0 to 25 and then 50.
 
 ## Try it manually
 
