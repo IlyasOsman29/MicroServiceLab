@@ -2,7 +2,7 @@ package dk.sdu.cbse.score;
 
 import org.springframework.web.client.RestTemplate;
 
-/** Minimal Asteroids-side adapter for the remote scoring component. */
+/** Client used by the game to call the score service. */
 public final class ScoreClient {
     private final RestTemplate restTemplate;
     private final String scoreUrl;
